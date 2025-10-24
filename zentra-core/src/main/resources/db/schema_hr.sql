@@ -75,20 +75,19 @@ CREATE TABLE candidat (
     email VARCHAR(150) NOT NULL UNIQUE, -- E: Existence
     telephone VARCHAR(20),
     date_naissance DATE NOT NULL,
-    age INTEGER GENERATED ALWAYS AS (EXTRACT(YEAR FROM AGE(date_naissance))) STORED, -- V: Valeurs, M: Mesure
     adresse TEXT,
     ville VARCHAR(100),
     pays VARCHAR(100) NOT NULL DEFAULT 'France',
     niveau_etudes VARCHAR(100),
     dernier_diplome VARCHAR(150),
     annee_obtention_diplome INTEGER CHECK (annee_obtention_diplome >= 1950 AND annee_obtention_diplome <= EXTRACT(YEAR FROM CURRENT_DATE)), -- R: Réalisme
-    annees_experience INTEGER NOT NULL DEFAULT 0 CHECK (annees_experience >= 0), -- V: Valeurs
+    annees_experience INTEGER NOT NULL DEFAULT 0 CHECK (annees_experience >= 0), -- V: Valeurs, M: Mesure
     competences TEXT,
     cv_fichier VARCHAR(255), -- E: Existence du fichier
     lettre_motivation_fichier VARCHAR(255),
     date_inscription TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     statut_global VARCHAR(50) NOT NULL DEFAULT 'Nouveau' CHECK (statut_global IN ('Nouveau', 'En évaluation', 'Accepté', 'Refusé', 'Embauché')),
-    CONSTRAINT chk_age_minimum CHECK (EXTRACT(YEAR FROM AGE(date_naissance)) >= 16), -- R: Réalisme
+    CONSTRAINT chk_age_minimum CHECK (EXTRACT(YEAR FROM AGE(CURRENT_DATE, date_naissance)) >= 16), -- R: Réalisme
     CONSTRAINT chk_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$') -- I: Irrégularité
 );
 
@@ -181,7 +180,6 @@ CREATE TABLE employe (
     email_professionnel VARCHAR(150) NOT NULL UNIQUE,
     telephone_professionnel VARCHAR(20),
     date_naissance DATE NOT NULL,
-    age INTEGER GENERATED ALWAYS AS (EXTRACT(YEAR FROM AGE(date_naissance))) STORED, -- V: Valeurs
     sexe CHAR(1) CHECK (sexe IN ('M', 'F', 'A')), -- A: Autre
     adresse TEXT,
     ville VARCHAR(100),
@@ -191,7 +189,6 @@ CREATE TABLE employe (
     id_poste INTEGER NOT NULL REFERENCES poste(id_poste),
     id_departement INTEGER NOT NULL REFERENCES departement(id_departement),
     date_embauche DATE NOT NULL, -- M: Mesure
-    anciennete_annees INTEGER GENERATED ALWAYS AS (EXTRACT(YEAR FROM AGE(date_embauche))) STORED, -- M: Mesure
     type_contrat VARCHAR(50) NOT NULL CHECK (type_contrat IN ('CDI', 'CDD', 'Stage', 'Alternance', 'Interim')),
     statut_employe VARCHAR(50) NOT NULL DEFAULT 'Actif' CHECK (statut_employe IN ('Actif', 'En congé', 'Suspendu', 'Démissionné', 'Licencié', 'Retraité')), -- A: Appartenance
     
@@ -208,7 +205,7 @@ CREATE TABLE employe (
     date_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     date_derniere_modification TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     
-    CONSTRAINT chk_employe_age CHECK (EXTRACT(YEAR FROM AGE(date_naissance)) >= 16), -- R: Réalisme
+    CONSTRAINT chk_employe_age CHECK (EXTRACT(YEAR FROM AGE(CURRENT_DATE, date_naissance)) >= 16), -- R: Réalisme
     CONSTRAINT chk_date_embauche CHECK (date_embauche <= CURRENT_DATE), -- I: Irrégularité
     CONSTRAINT chk_date_fin_contrat CHECK (date_fin_contrat IS NULL OR date_fin_contrat > date_embauche), -- I: Irrégularité
     CONSTRAINT chk_salaire_realiste CHECK (salaire_base <= 1000000) -- R: Réalisme
@@ -315,7 +312,7 @@ SELECT
     p.titre_poste,
     d.nom_departement,
     e.date_embauche,
-    e.anciennete_annees,
+    EXTRACT(YEAR FROM AGE(CURRENT_DATE, e.date_embauche))::INTEGER AS anciennete_annees,
     e.type_contrat,
     e.salaire_base,
     e.statut_employe
