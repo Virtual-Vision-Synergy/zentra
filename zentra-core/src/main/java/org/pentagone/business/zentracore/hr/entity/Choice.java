@@ -23,7 +23,4 @@ public class Choice extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
-    
-    @OneToMany(mappedBy = "choice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Response> responses;
 }

@@ -40,7 +40,7 @@ public class Interview extends BaseEntity {
     @Column(name = "score")
     private Double score;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 }

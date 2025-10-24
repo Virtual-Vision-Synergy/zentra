@@ -56,9 +56,6 @@ public class Candidate extends BaseEntity {
     @Column(name = "motivational_letter_file", length = 255)
     private String motivationalLetterFile;
     
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Employee> employees;
-    
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Application> applications;
+    @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL)
+    private Application applications;
 }

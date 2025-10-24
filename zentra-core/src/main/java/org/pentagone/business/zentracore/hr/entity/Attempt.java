@@ -18,7 +18,7 @@ public class Attempt extends BaseEntity {
     @JoinColumn(name = "qcm_id", nullable = false)
     private Qcm qcm;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
     

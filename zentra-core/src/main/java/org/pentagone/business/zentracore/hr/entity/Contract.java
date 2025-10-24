@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Table(name = "employment_contract")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class EmploymentContract extends BaseEntity {
+public class Contract extends BaseEntity {
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
     

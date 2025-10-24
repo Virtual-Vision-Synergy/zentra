@@ -6,7 +6,6 @@ import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "application")
@@ -29,17 +28,17 @@ public class Application extends BaseEntity {
     @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
     private Candidate candidate;
-    
+
+    @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
+    private Interview interview;
+
+    @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
+    private Attempt attempt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id", nullable = false)
     private Publication publication;
-    
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Interview> interviews;
-    
-    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Attempt> attempts;
 }

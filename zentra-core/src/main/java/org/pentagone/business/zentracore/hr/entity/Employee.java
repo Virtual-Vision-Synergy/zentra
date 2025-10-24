@@ -55,16 +55,9 @@ public class Employee extends BaseEntity {
     private LocalDate contractEndDate;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "candidate_id")
-    private Candidate candidate;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
     
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EmploymentContract> employmentContracts;
-    
-    @OneToMany(mappedBy = "interviewer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Interview> conductedInterviews;
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Contract contract;
 }
