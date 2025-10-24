@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByQcmId(Long qcmId);
-    List<Question> findByRequired(Boolean required);
+    List<Question> findByRequired(boolean required);
 }
