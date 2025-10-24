@@ -21,9 +21,6 @@ public class Qcm extends BaseEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
-    
     @Column(name = "duration_minutes")
     private Integer durationMinutes;
     

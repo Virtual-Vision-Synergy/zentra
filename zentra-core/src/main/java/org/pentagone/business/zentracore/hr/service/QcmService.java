@@ -9,4 +9,5 @@ public interface QcmService {
     QcmDto updateQcm(QcmDto qcmDto);
     QcmDto getQcmById(Long id);
     List<QcmDto> getQcms();
+    void deleteById(Long id);
 }
