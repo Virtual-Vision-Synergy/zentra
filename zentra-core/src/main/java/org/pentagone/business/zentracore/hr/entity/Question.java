@@ -18,7 +18,7 @@ public class Question extends BaseEntity {
     private String libelle;
     
     @Column(name = "required")
-    private Boolean required = true;
+    private boolean required = true;
     
     @Column(name = "score")
     private Double score;

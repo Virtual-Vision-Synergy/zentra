@@ -4,6 +4,7 @@ import lombok.Data;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class QcmDto {
@@ -14,4 +15,6 @@ public class QcmDto {
     private Integer durationMinutes;
     private Double totalScore;
     private Double requiredScore;
+
+    private List<QuestionDto> questions;
 }

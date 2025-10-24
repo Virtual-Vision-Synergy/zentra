@@ -134,7 +134,7 @@ Retrieves all tests of a specific type.
 Retrieves all tests filtered by success status.
 
 **Path Parameters:**
-- `reussi` (Boolean) - true for passed tests, false for failed tests
+- `reussi` (boolean) - true for passed tests, false for failed tests
 
 **Response:** `200 OK`
 ```json

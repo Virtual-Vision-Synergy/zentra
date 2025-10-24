@@ -17,11 +17,8 @@ public class Choice extends BaseEntity {
     @Column(name = "libelle", nullable = false, length = 150)
     private String libelle;
     
-    @Column(name = "score")
-    private Double score;
-    
     @Column(name = "correct")
-    private Boolean correct = true;
+    private boolean correct = true;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
