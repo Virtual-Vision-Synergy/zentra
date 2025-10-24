@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmploymentContractRepository extends JpaRepository<Contract, Long> {
+public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByEmployeeId(Long employeeId);
     Optional<Contract> findByContractNumber(String contractNumber);
     boolean existsByContractNumber(String contractNumber);
