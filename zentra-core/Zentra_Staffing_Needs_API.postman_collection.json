@@ -1,0 +1,264 @@
+{
+  "info": {
+    "name": "Zentra - Staffing Needs API",
+    "description": "Collection Postman pour tester l'API de gestion des besoins en personnel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Créer un besoin en personnel",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Développeur Backend Senior\",\n  \"description\": \"Besoin urgent de développeur avec expertise Spring Boot et microservices\",\n  \"numberOfPositions\": 2,\n  \"priority\": \"High\",\n  \"status\": \"Open\",\n  \"requiredStartDate\": \"2025-11-15\",\n  \"budgetAllocated\": 120000.00,\n  \"justification\": \"Extension de l'équipe technique pour nouveau projet stratégique\",\n  \"departmentId\": 1,\n  \"jobId\": 3,\n  \"requestedById\": 5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Obtenir tous les besoins",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. Obtenir un besoin par ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4. Mettre à jour un besoin",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Développeur Backend Senior\",\n  \"description\": \"Besoin urgent de développeur avec expertise Spring Boot, microservices et Kubernetes\",\n  \"numberOfPositions\": 3,\n  \"priority\": \"High\",\n  \"status\": \"In Progress\",\n  \"requiredStartDate\": \"2025-11-15\",\n  \"budgetAllocated\": 150000.00,\n  \"justification\": \"Extension de l'équipe technique pour nouveau projet stratégique\",\n  \"departmentId\": 1,\n  \"jobId\": 3,\n  \"requestedById\": 5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5. Obtenir besoins par département",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/department/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "department", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6. Obtenir besoins par poste",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/job/3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "job", "3"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7. Obtenir besoins par statut (Open)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/status/Open",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "status", "Open"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "8. Obtenir besoins par statut (In Progress)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/status/In Progress",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "status", "In Progress"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "9. Obtenir besoins par priorité (High)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/priority/High",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "priority", "High"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10. Obtenir besoins par priorité (Medium)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/priority/Medium",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "priority", "Medium"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11. Supprimer un besoin",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12. Créer besoin minimal (champs obligatoires)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Chef de projet\",\n  \"numberOfPositions\": 1,\n  \"status\": \"Open\",\n  \"departmentId\": 2,\n  \"jobId\": 5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13. Tester validation - Titre vide (erreur)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"numberOfPositions\": 1,\n  \"status\": \"Open\",\n  \"departmentId\": 1,\n  \"jobId\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14. Tester validation - Nombre positions = 0 (erreur)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Développeur\",\n  \"numberOfPositions\": 0,\n  \"status\": \"Open\",\n  \"departmentId\": 1,\n  \"jobId\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/staffing-needs",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["staffing-needs"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

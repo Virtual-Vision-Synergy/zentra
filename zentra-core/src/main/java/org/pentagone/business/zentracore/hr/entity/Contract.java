@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -28,10 +29,10 @@ public class Contract extends BaseEntity {
     private LocalDate endDate;
     
     @Column(name = "gross_salary", precision = 10, scale = 2)
-    private Double grossSalary;
+    private BigDecimal grossSalary;
     
     @Column(name = "annual_bonus", precision = 10, scale = 2)
-    private Double annualBonus;
+    private BigDecimal annualBonus;
     
     @Column(name = "benefits", columnDefinition = "TEXT")
     private String benefits;

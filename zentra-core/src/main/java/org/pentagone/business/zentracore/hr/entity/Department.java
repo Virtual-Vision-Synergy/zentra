@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Department extends BaseEntity {
     private String description;
     
     @Column(name = "annual_budget", precision = 15, scale = 2)
-    private Double annualBudget;
+    private BigDecimal annualBudget;
     
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Job> jobs;

@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class Employee extends BaseEntity {
     private LocalDate hireDate;
     
     @Column(name = "base_salary", nullable = false, precision = 10, scale = 2)
-    private Double baseSalary;
+    private BigDecimal baseSalary;
     
     @Column(name = "contract_end_date")
     private LocalDate contractEndDate;
