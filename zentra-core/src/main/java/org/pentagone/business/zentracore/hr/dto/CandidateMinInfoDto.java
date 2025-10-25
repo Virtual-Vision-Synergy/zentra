@@ -2,13 +2,12 @@ package org.pentagone.business.zentracore.hr.dto;
 
 import lombok.Data;
 
-import java.util.List;
-
-
 @Data
-public class AttemptDto {
+public class CandidateMinInfoDto {
     private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
     private Long applicationId;
-    private Double obtainedScore;
-    private List<AnswerDto> answers;
 }
+

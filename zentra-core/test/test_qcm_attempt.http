@@ -1,0 +1,82 @@
+### create a attempt for a qcm with token in header
+POST http://localhost:8080/api/users/attempt
+Content-Type: application/json
+Authorization: Bearer 123456789abcdef
+
+{
+  "answers": [
+    {
+      "choiceId": 1
+    },
+    {
+      "choiceId": 3
+    }
+  ]
+}
+
+### get a specific qcm by token in header
+GET http://localhost:8080/api/users/qcm
+Accept: application/json
+Authorization: Bearer 123456789abcdef
+
+### authencticate by token
+POST http://localhost:8080/api/users/auth
+Content-Type: application/json
+
+{
+  "token": "123456789abcdef"
+}
+
+### create a new qcm
+POST http://localhost:8080/api/qcms
+Content-Type: application/json
+
+{
+  "title": "Sample QCM",
+  "description": "test",
+  "durationMinutes": 15,
+  "requiredScore": 1,
+  "questions": [
+    {
+      "libelle": "Question 1",
+      "required": true,
+      "score": 1,
+        "choices": [
+            {
+            "libelle": "Answer 1.1",
+            "correct": false
+            },
+            {
+            "libelle": "Answer 1.2",
+            "correct": true
+            }
+        ]
+    },
+    {
+      "libelle": "Question 2",
+      "required": true,
+      "score": 1,
+        "choices": [
+            {
+            "libelle": "Answer 2.1",
+            "correct": true
+            },
+            {
+            "libelle": "Answer 2.2",
+            "correct": false
+            }
+        ]
+    }
+  ]
+}
+
+
+### get a specific qcm
+GET http://localhost:8080/api/qcms/1
+Accept: application/json
+
+### list all qcms
+GET http://localhost:8080/api/qcms
+Accept: application/json
+
+###

@@ -20,7 +20,7 @@ public class Department extends BaseEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     
-    @Column(name = "annual_budget", precision = 15, scale = 2)
+    @Column(name = "annual_budget")
     private Double annualBudget;
     
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

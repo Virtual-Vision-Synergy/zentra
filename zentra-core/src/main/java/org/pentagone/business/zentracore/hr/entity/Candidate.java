@@ -57,5 +57,5 @@ public class Candidate extends BaseEntity {
     private String motivationalLetterFile;
     
     @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL)
-    private Application applications;
+    private Application application;
 }
