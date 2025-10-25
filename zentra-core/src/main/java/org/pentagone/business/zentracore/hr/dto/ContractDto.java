@@ -3,6 +3,7 @@ package org.pentagone.business.zentracore.hr.dto;
 import lombok.Data;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -12,8 +13,8 @@ public class ContractDto {
     private String contractNumber;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Double grossSalary;
-    private Double annualBonus;
+    private BigDecimal grossSalary;
+    private BigDecimal annualBonus;
     private String benefits;
     private Double weeklyHours;
     private Integer annualLeaveDays;

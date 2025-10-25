@@ -24,6 +24,26 @@ CREATE TABLE job
     updated_at      DATE         NOT NULL DEFAULT CURRENT_DATE
 );
 
+-- Table: staffing_need
+-- Français: Besoin en personnel. Gère les besoins en recrutement de l'entreprise.
+CREATE TABLE staffing_need
+(
+    id                   SERIAL PRIMARY KEY,
+    title                VARCHAR(200)   NOT NULL,
+    description          TEXT,
+    number_of_positions  INTEGER        NOT NULL CHECK (number_of_positions > 0),
+    priority             VARCHAR(50) CHECK (priority IN ('High', 'Medium', 'Low')),
+    status               VARCHAR(50)    NOT NULL DEFAULT 'Open' CHECK (status IN ('Open', 'In Progress', 'Fulfilled', 'Cancelled')),
+    required_start_date  DATE,
+    budget_allocated     DECIMAL(15, 2) CHECK (budget_allocated >= 0),
+    justification        TEXT,
+    department_id        INTEGER        NOT NULL REFERENCES department (department_id),
+    job_id               INTEGER        NOT NULL REFERENCES job (job_id),
+    requested_by         INTEGER REFERENCES employee (employee_id),
+    created_at           TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at           TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Table: employee
 -- Français: Employé. Informations personnelles et professionnelles de l'employé.
 CREATE TABLE employee
@@ -217,3 +237,4 @@ CREATE TABLE interview
     updated_at       DATE         NOT NULL DEFAULT CURRENT_DATE
 );
 
+ 
