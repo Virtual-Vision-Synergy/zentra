@@ -34,5 +34,5 @@ public class Qcm extends BaseEntity {
     private List<Question> questions;
     
     @OneToMany(mappedBy = "qcm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Attempt> attempts;
+    private List<Application> applications;
 }

@@ -38,6 +38,13 @@ public class Application extends BaseEntity {
     @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
     private Attempt attempt;
 
+    @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
+    private Token token;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "qcm_id", nullable = false)
+    private Qcm qcm;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id", nullable = false)
     private Publication publication;

@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.pentagone.business.zentracore.hr.dto.QuestionDto;
 import org.pentagone.business.zentracore.hr.entity.Question;
 
+@SuppressWarnings("unused")
 @Mapper(componentModel = "spring", uses = { ChoiceMapper.class })
 public interface QuestionMapper {
     Question toEntity(QuestionDto dto);

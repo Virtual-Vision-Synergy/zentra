@@ -13,11 +13,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Attempt extends BaseEntity {
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qcm_id", nullable = false)
-    private Qcm qcm;
-    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
@@ -26,5 +21,5 @@ public class Attempt extends BaseEntity {
     private Double obtainedScore;
     
     @OneToMany(mappedBy = "attempt", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Response> responses;
+    private List<Answer> answers;
 }

@@ -9,16 +9,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * 400 Bad Request
+     */
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ApiError> illegalArgumentException(IllegalArgumentException e) {
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * 404 Not Found
+     */
     @ExceptionHandler({EntityNotFoundException.class})
     public ResponseEntity<ApiError> entityNotFoundException(EntityNotFoundException e) {
         return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * 500 Internal Server Error
+     */
+    @SuppressWarnings("CallToPrintStackTrace")
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ApiError> exception(Exception e) {
         e.printStackTrace();
