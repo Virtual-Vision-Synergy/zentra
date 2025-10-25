@@ -1,0 +1,124 @@
+.timer {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  transition: all 0.3s ease;
+}
+
+.timer-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 8;
+}
+
+.timer-ring-progress {
+  fill: none;
+  stroke: white;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.5s linear, stroke 0.3s ease;
+}
+
+.timer.warning .timer-ring-progress {
+  stroke: #f6e05e;
+}
+
+.timer.critical .timer-ring-progress {
+  stroke: #fc8181;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.timer-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.timer-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.timer.warning .timer-icon {
+  color: #f6e05e;
+}
+
+.timer.critical .timer-icon {
+  color: #fc8181;
+}
+
+.timer-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+}
+
+.timer.warning .timer-value {
+  color: #f6e05e;
+}
+
+.timer.critical .timer-value {
+  color: #fc8181;
+}
+
+.timer-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .timer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .timer-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .timer-value {
+    font-size: 18px;
+  }
+
+  .timer-label {
+    font-size: 9px;
+  }
+}
+
