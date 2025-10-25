@@ -41,31 +41,31 @@ Content-Type: application/json
       "libelle": "Question 1",
       "required": true,
       "score": 1,
-        "choices": [
-            {
-            "libelle": "Answer 1.1",
-            "correct": false
-            },
-            {
-            "libelle": "Answer 1.2",
-            "correct": true
-            }
-        ]
+      "choices": [
+        {
+          "libelle": "Answer 1.1",
+          "correct": false
+        },
+        {
+          "libelle": "Answer 1.2",
+          "correct": true
+        }
+      ]
     },
     {
       "libelle": "Question 2",
       "required": true,
       "score": 1,
-        "choices": [
-            {
-            "libelle": "Answer 2.1",
-            "correct": true
-            },
-            {
-            "libelle": "Answer 2.2",
-            "correct": false
-            }
-        ]
+      "choices": [
+        {
+          "libelle": "Answer 2.1",
+          "correct": true
+        },
+        {
+          "libelle": "Answer 2.2",
+          "correct": false
+        }
+      ]
     }
   ]
 }
