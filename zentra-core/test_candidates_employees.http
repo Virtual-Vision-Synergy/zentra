@@ -1,0 +1,113 @@
+### Test Candidates Endpoints
+
+### Variables
+@baseUrl = http://localhost:8080/api
+
+### 1. Get all candidates
+GET {{baseUrl}}/candidates
+Content-Type: application/json
+
+### 2. Get candidate by ID
+GET {{baseUrl}}/candidates/1
+Content-Type: application/json
+
+### 3. Create a new candidate
+POST {{baseUrl}}/candidates
+Content-Type: application/json
+
+{
+  "firstName": "Sophie",
+  "lastName": "Marceau",
+  "email": "sophie.marceau@example.com",
+  "phone": "0612345690",
+  "birthDate": "1993-04-12",
+  "address": "10 Rue de Paris",
+  "city": "Paris",
+  "country": "France",
+  "educationLevel": "Master",
+  "lastDegree": "Master en Informatique",
+  "yearsExperience": 4,
+  "skills": "Java, Spring, Angular, Docker"
+}
+
+### 4. Update a candidate
+PUT {{baseUrl}}/candidates
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Jean",
+  "lastName": "Dupont Updated",
+  "email": "jean.dupont@email.com",
+  "phone": "0612345678",
+  "birthDate": "1990-05-15",
+  "address": "123 Rue de la Paix",
+  "city": "Paris",
+  "country": "France",
+  "educationLevel": "Master",
+  "lastDegree": "Master Informatique",
+  "yearsExperience": 6,
+  "skills": "Java, Spring Boot, MySQL, Git, Docker"
+}
+
+### 5. Delete a candidate
+DELETE {{baseUrl}}/candidates/10
+Content-Type: application/json
+
+### ========================================
+### Test Employees Endpoints
+### ========================================
+
+### 6. Get all employees
+GET {{baseUrl}}/employees
+Content-Type: application/json
+
+### 7. Get employee by ID
+GET {{baseUrl}}/employees/1
+Content-Type: application/json
+
+### 8. Create a new employee
+POST {{baseUrl}}/employees
+Content-Type: application/json
+
+{
+  "employeeNumber": "EMP005",
+  "firstName": "Laurent",
+  "lastName": "Blanc",
+  "workEmail": "laurent.blanc@company.com",
+  "workPhone": "0123456793",
+  "birthDate": "1987-06-15",
+  "gender": "M",
+  "address": "50 Avenue Tech",
+  "city": "Paris",
+  "country": "France",
+  "hireDate": "2022-01-10",
+  "baseSalary": 50000.00,
+  "jobId": 1
+}
+
+### 9. Update an employee
+PUT {{baseUrl}}/employees
+Content-Type: application/json
+
+{
+  "id": 1,
+  "employeeNumber": "EMP001",
+  "firstName": "Marie",
+  "lastName": "Martin Updated",
+  "workEmail": "marie.martin@company.com",
+  "workPhone": "0123456789",
+  "birthDate": "1985-05-15",
+  "gender": "F",
+  "address": "10 Rue du Commerce",
+  "city": "Paris",
+  "country": "France",
+  "hireDate": "2020-01-15",
+  "baseSalary": 47000.00,
+  "jobId": 3
+}
+
+### 10. Delete an employee
+DELETE {{baseUrl}}/employees/10
+Content-Type: application/json
+
