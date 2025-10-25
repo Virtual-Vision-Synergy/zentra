@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import QcmList from './pages/QcmList';
 import QcmDetails from './pages/QcmDetails';
 import QcmForm from './pages/QcmForm';
+import { StaffingNeedApp } from './hr/StaffingNeedApp';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="qcms" element={<QcmList />} />
           <Route path="qcms/:id" element={<QcmDetails />} />
           <Route path="qcms/:id/edit" element={<QcmForm />} />
+          <Route path="besoins" element={<StaffingNeedApp />} />
         </Route>
       </Routes>
     </BrowserRouter>
