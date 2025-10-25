@@ -75,3 +75,24 @@ export interface QcmListItemDto {
   questionsCount: number;
 }
 
+export interface PublicationDto {
+  id: number;
+  title: string;
+  description: string;
+  publishedDate: string;
+  closingDate?: string;
+  numberOfPositions: number;
+  status: string;
+  jobId: number;
+}
+
+export interface PublicationFormDto {
+  id?: number;
+  title: string;
+  description: string;
+  publishedDate?: string;
+  closingDate?: string;
+  numberOfPositions: number;
+  status: string;
+  jobId: number;
+}

@@ -7,6 +7,9 @@ import Dashboard from './pages/Dashboard';
 import QcmList from './pages/QcmList';
 import QcmDetails from './pages/QcmDetails';
 import QcmForm from './pages/QcmForm';
+import PublicationsPage from './pages/PublicationsPage';
+import PublicationForm from './pages/PublicationForm';
+import CandidateApply from './pages/CandidateApply';
 
 function App() {
   return (
@@ -16,6 +19,7 @@ function App() {
         <Route path="/" element={<UserLogin />} />
         <Route path="/qcm-attempt" element={<QcmAttempt />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/apply/:publicationId" element={<CandidateApply />} />
 
         {/* Routes admin */}
         <Route path="/admin" element={<AdminLayout />}>
@@ -23,6 +27,10 @@ function App() {
           <Route path="qcms" element={<QcmList />} />
           <Route path="qcms/:id" element={<QcmDetails />} />
           <Route path="qcms/:id/edit" element={<QcmForm />} />
+
+          {/* Publications */}
+          <Route path="publications" element={<PublicationsPage />} />
+          <Route path="publications/new" element={<PublicationForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

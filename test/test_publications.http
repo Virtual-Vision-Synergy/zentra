@@ -1,0 +1,35 @@
+### Liste des publications
+GET http://localhost:8080/api/publications
+Accept: application/json
+
+### Création publication (échoue si job inexistant)
+POST http://localhost:8080/api/publications
+Content-Type: application/json
+
+{
+  "title": "Développeur Java",
+  "description": "Nous recherchons un développeur Java expérimenté",
+  "numberOfPositions": 2,
+  "status": "Open",
+  "jobId": 999999
+}
+
+### Création publication (modifier jobId avec un ID existant)
+POST http://localhost:8080/api/publications
+Content-Type: application/json
+
+{
+  "title": "Ingénieur QA",
+  "description": "Automatisation des tests",
+  "numberOfPositions": 1,
+  "status": "Open",
+  "jobId": 1
+}
+
+### Détail publication
+GET http://localhost:8080/api/publications/1
+Accept: application/json
+
+### Suppression publication
+DELETE http://localhost:8080/api/publications/1
+
