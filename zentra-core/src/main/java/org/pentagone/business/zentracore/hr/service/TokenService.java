@@ -1,5 +1,7 @@
 package org.pentagone.business.zentracore.hr.service;
 
-public interface TokenService {
+import org.pentagone.business.zentracore.hr.entity.Token;
 
+public interface TokenService {
+    Token generateTokenByApplicationId(Long applicationId);
 }

@@ -16,12 +16,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class Token extends BaseEntity {
     private String value;
+    private boolean active;
     private LocalDateTime expirationDate;
     @OneToOne
     @JoinColumn(name = "application_id")
     private Application application;
 
     public boolean isValid() {
-        return LocalDateTime.now().isBefore(expirationDate);
+        return active && LocalDateTime.now().isBefore(expirationDate);
     }
 }

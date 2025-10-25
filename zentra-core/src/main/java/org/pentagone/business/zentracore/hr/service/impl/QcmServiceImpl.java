@@ -85,4 +85,11 @@ public class QcmServiceImpl implements QcmService {
                 new EntityNotFoundException("Qcm not found"));
         qcmRepository.delete(qcm);
     }
+
+    @Override
+    public QcmDto getQcmByApplicationId(Long applicationId) {
+        Qcm qcm = qcmRepository.findByApplicationsId(applicationId).orElseThrow(() ->
+                new EntityNotFoundException("Qcm not found for application id: " + applicationId));
+        return qcmMapper.toDto(qcm);
+    }
 }

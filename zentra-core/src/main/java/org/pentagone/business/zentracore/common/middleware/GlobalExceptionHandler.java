@@ -1,6 +1,7 @@
 package org.pentagone.business.zentracore.common.middleware;
 
 import org.pentagone.business.zentracore.common.exception.EntityNotFoundException;
+import org.pentagone.business.zentracore.common.exception.UnauthorisedAccessException;
 import org.pentagone.business.zentracore.common.util.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ApiError> illegalArgumentException(IllegalArgumentException e) {
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 401 Unauthorized
+     */
+    @ExceptionHandler({UnauthorisedAccessException.class})
+    public ResponseEntity<ApiError> unauthorisedAccessException(UnauthorisedAccessException e) {
+        return new ResponseEntity<>(new ApiError(HttpStatus.UNAUTHORIZED.value(), e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     /**
