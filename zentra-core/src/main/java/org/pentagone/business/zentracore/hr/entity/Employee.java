@@ -49,8 +49,8 @@ public class Employee extends BaseEntity {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
     
-    @Column(name = "base_salary", nullable = false, precision = 10, scale = 2)
-    private BigDecimal baseSalary;
+    @Column(name = "base_salary", nullable = false)
+    private Double baseSalary;
     
     @Column(name = "contract_end_date")
     private LocalDate contractEndDate;

@@ -6,10 +6,10 @@ import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 @Entity
-@Table(name = "response")
+@Table(name = "answer")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Response extends BaseEntity {
+public class Answer extends BaseEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attempt_id", nullable = false)

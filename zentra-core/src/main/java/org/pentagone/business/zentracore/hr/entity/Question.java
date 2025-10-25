@@ -29,4 +29,8 @@ public class Question extends BaseEntity {
     
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Choice> choices;
+
+    public double getChoicesScore() {
+        return score / getChoices().stream().filter(Choice::isCorrect).count();
+    }
 }

@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.pentagone.business.zentracore.hr.dto.QcmDto;
 import org.pentagone.business.zentracore.hr.entity.Qcm;
 
+@SuppressWarnings("unused")
 @Mapper(componentModel = "spring", uses = { QuestionMapper.class })
 public interface QcmMapper {
     Qcm toEntity(QcmDto dto);

@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.pentagone.business.zentracore.hr.dto.ChoiceDto;
 import org.pentagone.business.zentracore.hr.entity.Choice;
 
+@SuppressWarnings("unused")
 @Mapper(componentModel = "spring")
 public interface ChoiceMapper {
     Choice toEntity(ChoiceDto dto);

@@ -4,14 +4,17 @@ import org.pentagone.business.zentracore.common.exception.EntityNotFoundExceptio
 import org.pentagone.business.zentracore.hr.dto.QcmDto;
 import org.pentagone.business.zentracore.hr.entity.Choice;
 import org.pentagone.business.zentracore.hr.entity.Qcm;
+import org.pentagone.business.zentracore.hr.entity.Question;
 import org.pentagone.business.zentracore.hr.mapper.QcmMapper;
 import org.pentagone.business.zentracore.hr.repository.QcmRepository;
 import org.pentagone.business.zentracore.hr.service.QcmService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class QcmServiceImpl implements QcmService {
     private final QcmRepository qcmRepository;
     private final QcmMapper qcmMapper;
@@ -33,6 +36,8 @@ public class QcmServiceImpl implements QcmService {
         qcm.getQuestions().forEach(q -> {
             if (q.getLibelle() == null || q.getLibelle().isEmpty())
                 throw new IllegalArgumentException("Libelle is empty");
+            if (q.getScore() == null || q.getScore() <= 0)
+                throw new IllegalArgumentException("Score is empty or invalid");
             if (q.getChoices() == null || q.getChoices().isEmpty())
                 throw new IllegalArgumentException("Choices is empty");
             if (q.getChoices().stream().noneMatch(Choice::isCorrect))
@@ -47,20 +52,26 @@ public class QcmServiceImpl implements QcmService {
     @Override
     public QcmDto createQcm(QcmDto qcmDto) {
         Qcm qcm = qcmMapper.toEntity(qcmDto);
+        if (qcm.getId() != null) throw new IllegalArgumentException("New Qcm cannot already have an ID");
         verifyQcm(qcm);
+        qcm.setTotalScore(qcm.getQuestions().stream().mapToDouble(Question::getScore).sum());
         return qcmMapper.toDto(qcmRepository.save(qcm));
     }
 
     @Override
     public QcmDto updateQcm(QcmDto qcmDto) {
         Qcm qcm = qcmMapper.toEntity(qcmDto);
+        if (qcm.getId() == null || !qcmRepository.existsById(qcm.getId()))
+            throw new EntityNotFoundException("Qcm not found");
         verifyQcm(qcm);
+        qcm.setTotalScore(qcm.getQuestions().stream().mapToDouble(Question::getScore).sum());
         return qcmMapper.toDto(qcmRepository.save(qcm));
     }
 
     @Override
     public QcmDto getQcmById(Long id) {
-        return qcmMapper.toDto(qcmRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Qcm not found")));
+        return qcmMapper.toDto(qcmRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Qcm not found")));
     }
 
     @Override
@@ -70,7 +81,15 @@ public class QcmServiceImpl implements QcmService {
 
     @Override
     public void deleteById(Long id) {
-        Qcm qcm = qcmRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Qcm not found"));
+        Qcm qcm = qcmRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Qcm not found"));
         qcmRepository.delete(qcm);
+    }
+
+    @Override
+    public QcmDto getQcmByApplicationId(Long applicationId) {
+        Qcm qcm = qcmRepository.findByApplicationsId(applicationId).orElseThrow(() ->
+                new EntityNotFoundException("Qcm not found for application id: " + applicationId));
+        return qcmMapper.toDto(qcm);
     }
 }

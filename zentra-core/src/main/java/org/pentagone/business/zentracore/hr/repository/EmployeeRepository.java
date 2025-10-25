@@ -12,8 +12,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByEmployeeNumber(String employeeNumber);
     Optional<Employee> findByWorkEmail(String workEmail);
     List<Employee> findByJobId(Long jobId);
-    // TODO: Ajouter la relation candidate dans Employee si nécessaire
-    // List<Employee> findByCandidateId(Long candidateId);
     boolean existsByEmployeeNumber(String employeeNumber);
     boolean existsByWorkEmail(String workEmail);
 }
