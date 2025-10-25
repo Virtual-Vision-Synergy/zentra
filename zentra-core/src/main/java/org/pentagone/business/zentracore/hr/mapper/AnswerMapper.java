@@ -7,15 +7,13 @@ import org.mapstruct.Mapping;
 import org.pentagone.business.zentracore.hr.dto.AnswerDto;
 import org.pentagone.business.zentracore.hr.entity.Answer;
 import org.pentagone.business.zentracore.hr.repository.ChoiceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("unused")
 @Mapper(componentModel = "spring")
 public abstract class AnswerMapper {
-    protected final ChoiceRepository choiceRepository;
-
-    public AnswerMapper(ChoiceRepository choiceRepository) {
-        this.choiceRepository = choiceRepository;
-    }
+    @Autowired
+    protected ChoiceRepository choiceRepository;
 
     public abstract Answer toEntity(AnswerDto dto);
 

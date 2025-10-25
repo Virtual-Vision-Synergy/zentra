@@ -11,7 +11,7 @@ import org.pentagone.business.zentracore.common.entity.BaseEntity;
 import java.time.LocalDateTime;
 
 @Entity
-@Table("token")
+@Table(name = "token")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Token extends BaseEntity {

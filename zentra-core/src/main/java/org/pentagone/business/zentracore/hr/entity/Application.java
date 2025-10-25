@@ -42,10 +42,10 @@ public class Application extends BaseEntity {
     private Token token;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qcm_id", nullable = false)
+    @JoinColumn(name = "qcm_id")
     private Qcm qcm;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publication_id", nullable = false)
+    @JoinColumn(name = "publication_id")
     private Publication publication;
 }

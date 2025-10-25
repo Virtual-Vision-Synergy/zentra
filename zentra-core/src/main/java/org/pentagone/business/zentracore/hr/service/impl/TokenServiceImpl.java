@@ -18,7 +18,7 @@ import java.util.UUID;
 public class TokenServiceImpl implements TokenService {
     private final TokenRepository tokenRepository;
     private final ApplicationRepository applicationRepository;
-    @Value("token.expiration-days.default-value")
+    @Value("${token.expiration-days.default-value}")
     private Integer expirationDays;
 
 

@@ -7,15 +7,13 @@ import org.mapstruct.MappingTarget;
 import org.pentagone.business.zentracore.hr.dto.AttemptDto;
 import org.pentagone.business.zentracore.hr.entity.Attempt;
 import org.pentagone.business.zentracore.hr.repository.ApplicationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("unused")
 @Mapper(componentModel = "spring", uses = { AnswerMapper.class })
 public abstract class AttemptMapper {
-    private final ApplicationRepository applicationRepository;
-
-    public AttemptMapper(ApplicationRepository applicationRepository) {
-        this.applicationRepository = applicationRepository;
-    }
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     public abstract Attempt toEntity(AttemptDto dto);
 

@@ -1,12 +1,12 @@
 package org.pentagone.business.zentracore.hr.controller;
 
 import org.pentagone.business.zentracore.hr.dto.AttemptDto;
+import org.pentagone.business.zentracore.hr.dto.AuthRequestDto;
 import org.pentagone.business.zentracore.hr.dto.CandidateMinInfoDto;
 import org.pentagone.business.zentracore.hr.dto.QcmDto;
 import org.pentagone.business.zentracore.hr.service.AttemptService;
 import org.pentagone.business.zentracore.hr.service.CandidateService;
 import org.pentagone.business.zentracore.hr.service.QcmService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<CandidateMinInfoDto> authenticateByToken(@Param("token") String token) {
-        CandidateMinInfoDto candidate = candidateService.getCandidateByTokenValue(token);
+    public ResponseEntity<CandidateMinInfoDto> authenticateByToken(@RequestBody AuthRequestDto authRequestDto) {
+        CandidateMinInfoDto candidate = candidateService.getCandidateByTokenValue(authRequestDto.getToken());
         return new ResponseEntity<>(candidate, HttpStatus.OK);
     }
 

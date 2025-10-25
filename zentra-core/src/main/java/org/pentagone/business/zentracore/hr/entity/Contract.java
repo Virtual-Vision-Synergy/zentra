@@ -27,10 +27,10 @@ public class Contract extends BaseEntity {
     @Column(name = "end_date")
     private LocalDate endDate;
     
-    @Column(name = "gross_salary", precision = 10, scale = 2)
+    @Column(name = "gross_salary")
     private Double grossSalary;
     
-    @Column(name = "annual_bonus", precision = 10, scale = 2)
+    @Column(name = "annual_bonus")
     private Double annualBonus;
     
     @Column(name = "benefits", columnDefinition = "TEXT")
