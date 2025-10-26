@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity

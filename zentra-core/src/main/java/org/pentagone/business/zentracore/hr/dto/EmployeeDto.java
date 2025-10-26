@@ -3,6 +3,7 @@ package org.pentagone.business.zentracore.hr.dto;
 import lombok.Data;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -19,7 +20,7 @@ public class EmployeeDto {
     private String city;
     private String country;
     private LocalDate hireDate;
-    private Double baseSalary;
+    private BigDecimal baseSalary;
     private LocalDate contractEndDate;
     private Long candidateId;
     private Long jobId;

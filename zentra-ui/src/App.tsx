@@ -10,6 +10,7 @@ import QcmForm from './pages/QcmForm';
 import InterviewList from './pages/InterviewList';
 import InterviewDetails from './pages/InterviewDetails';
 import InterviewForm from './pages/InterviewForm';
+import { StaffingNeedApp } from './hr/StaffingNeedApp';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="interviews" element={<InterviewList />} />
           <Route path="interviews/:id" element={<InterviewDetails />} />
           <Route path="interviews/:id/edit" element={<InterviewForm />} />
+          <Route path="besoins" element={<StaffingNeedApp />} />
         </Route>
       </Routes>
     </BrowserRouter>
