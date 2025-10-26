@@ -13,6 +13,7 @@ import InterviewForm from './pages/InterviewForm';
 import { StaffingNeedApp } from './hr/StaffingNeedApp';
 import PublicationsPage from './pages/PublicationsPage';
 import PublicationForm from './pages/PublicationForm';
+import CandidateApply from "./pages/CandidateApply.tsx";
 
 function App() {
   return (
