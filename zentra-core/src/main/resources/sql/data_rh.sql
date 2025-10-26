@@ -83,8 +83,8 @@ INSERT INTO interview (candidate_id, interviewer_id, interview_date, start_time,
 
 -- Token (par exemple pour accès au QCM) - lié à l'application 1 et 2
 INSERT INTO token (value, active, expiration_date, application_id) VALUES
-  ('tok_ABC123', true, '2025-02-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com') ORDER BY applied_at LIMIT 1)),
-  ('tok_DEF456', false, '2025-03-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com') ORDER BY applied_at LIMIT 1));
+  ('tok_ABC123', false, '2026-02-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com') ORDER BY applied_at LIMIT 1)),
+  ('tok_DEF456', true, '2026-03-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com') ORDER BY applied_at LIMIT 1));
 
 -- Staffing Needs
 INSERT INTO staffing_need (title, description, number_of_positions, priority, status, required_start_date, budget_allocated, justification, department_id, job_id, requested_by) VALUES
