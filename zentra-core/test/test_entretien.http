@@ -1,0 +1,242 @@
+### Test des endpoints Interview
+### Base URL
+@baseUrl = http://localhost:8080/api/interviews
+@candidateId = 1
+@interviewerId = 1
+@interviewId = 1
+@applicationId = 1
+
+### 1. Créer un nouvel entretien PRESENTIEL
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": {{candidateId}},
+  "interviewerId": {{interviewerId}},
+  "interviewDate": "2025-11-01",
+  "startTime": "10:00:00",
+  "durationMinutes": 60,
+  "interviewType": "PRESENTIEL",
+  "location": "Salle de réunion A - Bâtiment Principal",
+  "status": "PLANIFIE",
+  "applicationId": {{applicationId}}
+}
+
+### 2. Créer un entretien VISIO
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": 2,
+  "interviewerId": 2,
+  "interviewDate": "2025-11-05",
+  "startTime": "14:30:00",
+  "durationMinutes": 45,
+  "interviewType": "VISIO",
+  "location": "https://meet.google.com/abc-defg-hij",
+  "status": "PLANIFIE"
+}
+
+### 3. Créer un entretien TELEPHONIQUE
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": 3,
+  "interviewerId": 1,
+  "interviewDate": "2025-11-03",
+  "startTime": "09:00:00",
+  "durationMinutes": 30,
+  "interviewType": "TELEPHONIQUE",
+  "location": "Tel: +33 6 12 34 56 78",
+  "status": "PLANIFIE"
+}
+
+### 4. Obtenir tous les entretiens
+GET {{baseUrl}}
+
+### 5. Obtenir un entretien par ID
+GET {{baseUrl}}/{{interviewId}}
+
+### 6. Obtenir les entretiens d'un candidat
+GET {{baseUrl}}/candidate/{{candidateId}}
+
+### 7. Obtenir les entretiens d'un recruteur
+GET {{baseUrl}}/interviewer/{{interviewerId}}
+
+### 8. Obtenir les entretiens par type
+GET {{baseUrl}}/type/VISIO
+
+### 9. Obtenir les entretiens par statut
+GET {{baseUrl}}/status/PLANIFIE
+
+### 10. Obtenir les entretiens d'une date spécifique
+GET {{baseUrl}}/date/2025-11-01
+
+### 11. Obtenir les entretiens sur une plage de dates
+GET {{baseUrl}}/date-range?startDate=2025-11-01&endDate=2025-11-30
+
+### 12. Obtenir les entretiens par recruteur et statut
+GET {{baseUrl}}/interviewer/{{interviewerId}}/status/PLANIFIE
+
+### 13. Mettre à jour un entretien
+PUT {{baseUrl}}
+Content-Type: application/json
+
+{
+  "id": {{interviewId}},
+  "candidateId": {{candidateId}},
+  "interviewerId": {{interviewerId}},
+  "interviewDate": "2025-11-02",
+  "startTime": "11:00:00",
+  "durationMinutes": 90,
+  "interviewType": "PRESENTIEL",
+  "location": "Salle de réunion B - Bâtiment Principal",
+  "status": "PLANIFIE"
+}
+
+### 14. Modifier le statut d'un entretien
+PATCH {{baseUrl}}/{{interviewId}}/status
+Content-Type: application/json
+
+{
+  "status": "REALISE"
+}
+
+### 15. Annuler un entretien
+PATCH {{baseUrl}}/{{interviewId}}/status
+Content-Type: application/json
+
+{
+  "status": "ANNULE"
+}
+
+### 16. Clôturer un entretien avec évaluation
+PATCH {{baseUrl}}/{{interviewId}}/complete
+Content-Type: application/json
+
+{
+  "score": 12,
+  "comment": "Excellent candidat, très motivé et compétent. Bonnes connaissances techniques et soft skills. Recommandation: embauche."
+}
+
+### 17. Replanifier un entretien
+PATCH {{baseUrl}}/{{interviewId}}/reschedule
+Content-Type: application/json
+
+{
+  "date": "2025-11-10",
+  "time": "15:00:00"
+}
+
+### 18. Supprimer un entretien
+DELETE {{baseUrl}}/{{interviewId}}
+
+### ========================================
+### Tests de cas d'erreur
+### ========================================
+
+### 19. Créer un entretien sans candidat (devrait échouer)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "interviewerId": {{interviewerId}},
+  "interviewDate": "2025-11-01",
+  "startTime": "10:00:00",
+  "durationMinutes": 60,
+  "interviewType": "PRESENTIEL",
+  "location": "Salle A"
+}
+
+### 20. Créer un entretien avec type invalide (devrait échouer)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": {{candidateId}},
+  "interviewerId": {{interviewerId}},
+  "interviewDate": "2025-11-01",
+  "startTime": "10:00:00",
+  "durationMinutes": 60,
+  "interviewType": "EN_LIGNE",
+  "location": "Salle A"
+}
+
+### 21. Créer un entretien avec durée négative (devrait échouer)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": {{candidateId}},
+  "interviewerId": {{interviewerId}},
+  "interviewDate": "2025-11-01",
+  "startTime": "10:00:00",
+  "durationMinutes": -30,
+  "interviewType": "PRESENTIEL",
+  "location": "Salle A"
+}
+
+### 22. Clôturer avec note invalide (devrait échouer)
+PATCH {{baseUrl}}/{{interviewId}}/complete
+Content-Type: application/json
+
+{
+  "score": 25,
+  "comment": "Note trop élevée"
+}
+
+### 23. Obtenir un entretien inexistant (devrait échouer)
+GET {{baseUrl}}/99999
+
+### ========================================
+### Tests de scénarios complets
+### ========================================
+
+### 24. Scénario complet: Planification -> Modification -> Évaluation
+# Étape 1: Créer l'entretien
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "candidateId": 4,
+  "interviewerId": 3,
+  "interviewDate": "2025-11-15",
+  "startTime": "14:00:00",
+  "durationMinutes": 60,
+  "interviewType": "VISIO",
+  "location": "https://zoom.us/j/123456789",
+  "status": "PLANIFIE"
+}
+
+### Étape 2: Replanifier l'entretien
+# (Utiliser l'ID retourné de l'étape 1)
+PATCH {{baseUrl}}/4/reschedule
+Content-Type: application/json
+
+{
+  "date": "2025-11-16",
+  "time": "15:30:00"
+}
+
+### Étape 3: Clôturer l'entretien
+PATCH {{baseUrl}}/4/complete
+Content-Type: application/json
+
+{
+  "score": 17,
+  "comment": "Très bon profil technique. Expérience pertinente. À considérer pour le poste."
+}
+
+### 25. Filtrage avancé: Entretiens à venir pour un recruteur
+GET {{baseUrl}}/interviewer/{{interviewerId}}/status/PLANIFIE
+
+### 26. Vue agenda: Entretiens de la semaine
+GET {{baseUrl}}/date-range?startDate=2025-11-01&endDate=2025-11-07
+
+### 27. Statistiques: Tous les entretiens réalisés
+GET {{baseUrl}}/status/REALISE
+
+### 28. Historique candidat: Tous les entretiens d'un candidat
+GET {{baseUrl}}/candidate/{{candidateId}}
+

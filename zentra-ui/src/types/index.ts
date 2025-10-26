@@ -75,3 +75,68 @@ export interface QcmListItemDto {
   questionsCount: number;
 }
 
+// ========================================
+// Types pour Interview
+// ========================================
+
+export interface InterviewDto {
+  id: number;
+  candidateId: number;
+  candidateName: string;
+  candidateEmail: string;
+  interviewerId: number;
+  interviewerName: string;
+  interviewDate: string; // Format: YYYY-MM-DD
+  startTime: string; // Format: HH:mm:ss
+  durationMinutes: number;
+  interviewType: 'PRESENTIEL' | 'VISIO' | 'TELEPHONIQUE';
+  location: string;
+  status: 'PLANIFIE' | 'REALISE' | 'ANNULE';
+  score?: number;
+  comment?: string;
+  applicationId?: number;
+}
+
+export interface InterviewFormDto {
+  id?: number;
+  candidateId: number;
+  interviewerId: number;
+  interviewDate: string;
+  startTime: string;
+  durationMinutes: number;
+  interviewType: 'PRESENTIEL' | 'VISIO' | 'TELEPHONIQUE';
+  location: string;
+  status?: 'PLANIFIE' | 'REALISE' | 'ANNULE';
+  score?: number;
+  comment?: string;
+  applicationId?: number;
+}
+
+export interface InterviewListItemDto {
+  id: number;
+  candidateName: string;
+  candidateEmail: string;
+  interviewerName: string;
+  interviewDate: string;
+  startTime: string;
+  durationMinutes: number;
+  interviewType: 'PRESENTIEL' | 'VISIO' | 'TELEPHONIQUE';
+  status: 'PLANIFIE' | 'REALISE' | 'ANNULE';
+  score?: number;
+}
+
+export interface CandidateDto {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+
+export interface EmployeeDto {
+  id: number;
+  firstName: string;
+  lastName: string;
+  workEmail: string;
+}
+

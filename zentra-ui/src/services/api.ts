@@ -28,6 +28,11 @@ export async function put<T = any>(path: string, data?: any, headers: Headers = 
     return res.data;
 }
 
+export async function patch<T = any>(path: string, data?: any, headers: Headers = {}): Promise<T> {
+    const res = await client.patch(path, data, {headers});
+    return res.data;
+}
+
 export async function del<T = any>(path: string, headers: Headers = {}): Promise<T> {
     const res = await client.delete(path, {headers});
     return res.data;

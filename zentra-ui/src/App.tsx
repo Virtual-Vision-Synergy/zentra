@@ -7,6 +7,9 @@ import Dashboard from './pages/Dashboard';
 import QcmList from './pages/QcmList';
 import QcmDetails from './pages/QcmDetails';
 import QcmForm from './pages/QcmForm';
+import InterviewList from './pages/InterviewList';
+import InterviewDetails from './pages/InterviewDetails';
+import InterviewForm from './pages/InterviewForm';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="qcms" element={<QcmList />} />
           <Route path="qcms/:id" element={<QcmDetails />} />
           <Route path="qcms/:id/edit" element={<QcmForm />} />
+          <Route path="interviews" element={<InterviewList />} />
+          <Route path="interviews/:id" element={<InterviewDetails />} />
+          <Route path="interviews/:id/edit" element={<InterviewForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

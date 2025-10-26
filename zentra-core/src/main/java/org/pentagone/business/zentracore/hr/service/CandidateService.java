@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface CandidateService {
     CandidateDto createCandidate(CandidateDto candidateDto);
-    CandidateDto getCandidateById(Long id);
-    List<CandidateDto> getCandidates();
     CandidateDto updateCandidate(CandidateDto candidateDto);
+    CandidateDto getCandidateById(Long id);
+    List<CandidateDto> getAllCandidates();
     void deleteById(Long id);
-
     CandidateMinInfoDto getCandidateByTokenValue(String tokenValue);
 }
+

@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.pentagone.business.zentracore.common.entity.BaseEntity;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,32 +14,39 @@ import java.time.LocalTime;
 @EqualsAndHashCode(callSuper = true)
 public class Interview extends BaseEntity {
     
-    @Column(name = "interview_type", nullable = false, length = 100)
-    private String interviewType;
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private Candidate candidate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interviewer_id", nullable = false)
+    private Employee interviewer;
+
     @Column(name = "interview_date", nullable = false)
     private LocalDate interviewDate;
     
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
     
-    @Column(name = "end_time")
-    private LocalTime endTime;
-    
-    @Column(name = "duration_minutes")
+    @Column(name = "duration_minutes", nullable = false)
     private Integer durationMinutes;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interviewer_id", nullable = false)
-    private Employee interviewer;
-    
-    @Column(name = "report", columnDefinition = "TEXT")
-    private String report;
-    
+    @Column(name = "interview_type", nullable = false, length = 50)
+    private String interviewType; // PRESENTIEL, VISIO, TELEPHONIQUE
+
+    @Column(name = "location", columnDefinition = "TEXT")
+    private String location; // Lieu physique ou lien visio
+
+    @Column(name = "status", nullable = false, length = 50)
+    private String status = "PLANIFIE"; // PLANIFIE, REALISE, ANNULE
+
+    @Column(name = "comment", columnDefinition = "TEXT")
+    private String comment;
+
     @Column(name = "score")
     private Double score;
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "application_id")
     private Application application;
 }
