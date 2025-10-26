@@ -1,11 +1,14 @@
 package org.pentagone.business.zentracore.hr.service.impl;
 
 import org.pentagone.business.zentracore.common.exception.EntityNotFoundException;
+import org.pentagone.business.zentracore.common.exception.UnauthorisedAccessException;
 import org.pentagone.business.zentracore.hr.dto.CandidateDto;
 import org.pentagone.business.zentracore.hr.dto.CandidateMinInfoDto;
 import org.pentagone.business.zentracore.hr.entity.Candidate;
+import org.pentagone.business.zentracore.hr.entity.Token;
 import org.pentagone.business.zentracore.hr.mapper.CandidateMapper;
 import org.pentagone.business.zentracore.hr.repository.CandidateRepository;
+import org.pentagone.business.zentracore.hr.repository.TokenRepository;
 import org.pentagone.business.zentracore.hr.service.CandidateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +19,12 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CandidateServiceImpl implements CandidateService {
-
+    private final TokenRepository tokenRepository;
     private final CandidateRepository candidateRepository;
     private final CandidateMapper candidateMapper;
 
-    public CandidateServiceImpl(CandidateRepository candidateRepository, CandidateMapper candidateMapper) {
+    public CandidateServiceImpl(TokenRepository tokenRepository, CandidateRepository candidateRepository, CandidateMapper candidateMapper) {
+        this.tokenRepository = tokenRepository;
         this.candidateRepository = candidateRepository;
         this.candidateMapper = candidateMapper;
     }
@@ -71,7 +75,11 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateMinInfoDto getCandidateByTokenValue(String tokenValue) {
-        return null;
+        Token token = tokenRepository.findByValue(tokenValue).orElseThrow(() ->
+                new UnauthorisedAccessException("Invalid Token"));
+        if (!token.isValid())
+            throw new UnauthorisedAccessException("Invalid Token");
+        return candidateMapper.toMinInfoDto(token.getApplication().getCandidate());
     }
 }
 
