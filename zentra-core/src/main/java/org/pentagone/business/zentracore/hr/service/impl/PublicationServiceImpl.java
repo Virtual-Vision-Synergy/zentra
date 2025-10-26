@@ -11,6 +11,7 @@ import org.pentagone.business.zentracore.hr.service.PublicationService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -80,5 +81,11 @@ public class PublicationServiceImpl implements PublicationService {
         Publication p = publicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Publication introuvable"));
         publicationRepository.delete(p);
+    }
+
+    @Override
+    public List<PublicationDto> getOpenPublications() {
+        return publicationRepository.findAllByStatusAndClosingDateAfter("Open", LocalDate.now())
+                .stream().map(publicationMapper::toDto).toList();
     }
 }

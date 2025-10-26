@@ -106,16 +106,6 @@ export default function PublicationsPage() {
                 <h3>{p.title}</h3>
                 <div className="qcm-card-actions">
                   <button
-                    onClick={() => navigate(`/apply/${p.id}`)}
-                    className="btn-icon"
-                    title="Postuler"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14"></path>
-                      <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                  </button>
-                  <button
                     onClick={() => navigate(`/admin/publications/new?id=${p.id}`)}
                     className="btn-icon"
                     title="Modifier"
@@ -168,9 +158,6 @@ export default function PublicationsPage() {
                 <span className="required-score">
                   Statut: {p.status}
                 </span>
-                <Link to={`/apply/${p.id}`} className="btn-primary" style={{marginLeft: 'auto'}}>
-                  Postuler
-                </Link>
               </div>
 
               {deleteConfirm === p.id && (

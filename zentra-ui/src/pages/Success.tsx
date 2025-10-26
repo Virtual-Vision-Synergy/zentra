@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import UserNavbar from '../components/UserNavbar';
 import '../styles/Success.css';
 
 export default function Success() {
@@ -6,6 +7,7 @@ export default function Success() {
 
   return (
     <div className="success-container">
+      <UserNavbar />
       <div className="success-card">
         <div className="success-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

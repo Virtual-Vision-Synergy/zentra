@@ -11,7 +11,7 @@ interface MenuItem {
 
 export default function Sidebar() {
   const location = useLocation();
-  const [openModules, setOpenModules] = useState<string[]>(['QCM', 'Entretiens']);
+  const [openModules, setOpenModules] = useState<string[]>(['QCM', 'Entretiens', 'Candidatures']);
 
   const toggleModule = (label: string) => {
     setOpenModules((prev) =>
@@ -129,6 +129,42 @@ export default function Sidebar() {
         {
           label: 'Créer une publication',
           path: '/admin/publications/new',
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          ),
+        },
+      ],
+    },
+    {
+      label: 'Candidatures',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="8.5" cy="7" r="4"></circle>
+          <polyline points="17 11 19 13 23 9"></polyline>
+        </svg>
+      ),
+      children: [
+        {
+          label: 'Liste des candidatures',
+          path: '/admin/applications',
+          icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          ),
+        },
+        {
+          label: 'Nouvelle candidature',
+          path: '/admin/applications/new/edit',
           icon: (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="12" y1="5" x2="12" y2="19"></line>

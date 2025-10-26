@@ -39,13 +39,13 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
     }
 
     private void validateStaffingNeed(StaffingNeed staffingNeed) {
-        if (staffingNeed.getTitle() == null || staffingNeed.getTitle().trim().isEmpty()) {
+        if (staffingNeed.getTitle() == null || staffingNeed.getTitle().isBlank()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
         if (staffingNeed.getNumberOfPositions() == null || staffingNeed.getNumberOfPositions() <= 0) {
             throw new IllegalArgumentException("Number of positions must be greater than 0");
         }
-        if (staffingNeed.getStatus() == null || staffingNeed.getStatus().trim().isEmpty()) {
+        if (staffingNeed.getStatus() == null || staffingNeed.getStatus().isBlank()) {
             throw new IllegalArgumentException("Status cannot be empty");
         }
         if (staffingNeed.getDepartment() == null || staffingNeed.getDepartment().getId() == null) {

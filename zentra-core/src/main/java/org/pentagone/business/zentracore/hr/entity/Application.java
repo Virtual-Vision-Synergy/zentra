@@ -28,7 +28,7 @@ public class Application extends BaseEntity {
     @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "candidate_id", nullable = false)
     private Candidate candidate;
 

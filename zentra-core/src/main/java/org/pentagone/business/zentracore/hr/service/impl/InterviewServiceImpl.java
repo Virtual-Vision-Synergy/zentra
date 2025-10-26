@@ -29,17 +29,19 @@ public class InterviewServiceImpl implements InterviewService {
     private final CandidateRepository candidateRepository;
     private final EmployeeRepository employeeRepository;
     private final ApplicationRepository applicationRepository;
+    private final MailServiceImpl mailService;
 
     public InterviewServiceImpl(InterviewRepository interviewRepository,
                                 InterviewMapper interviewMapper,
                                 CandidateRepository candidateRepository,
                                 EmployeeRepository employeeRepository,
-                                ApplicationRepository applicationRepository) {
+                                ApplicationRepository applicationRepository, MailServiceImpl mailService) {
         this.interviewRepository = interviewRepository;
         this.interviewMapper = interviewMapper;
         this.candidateRepository = candidateRepository;
         this.employeeRepository = employeeRepository;
         this.applicationRepository = applicationRepository;
+        this.mailService = mailService;
     }
 
     private void validateInterview(InterviewDto interviewDto) {
@@ -94,6 +96,7 @@ public class InterviewServiceImpl implements InterviewService {
             Application application = applicationRepository.findById(interviewDto.getApplicationId())
                     .orElseThrow(() -> new EntityNotFoundException("Candidature non trouvée avec l'ID: " + interviewDto.getApplicationId()));
             interview.setApplication(application);
+            application.setStatus("interview_scheduled");
         } else {
             interview.setApplication(null);
         }
@@ -104,6 +107,14 @@ public class InterviewServiceImpl implements InterviewService {
         }
 
         Interview saved = interviewRepository.save(interview);
+
+        mailService.sendEmail(interview.getCandidate().getEmail(),
+                "Entretien planifié",
+                "Bonjour " + interview.getCandidate().getFirstName() + ",\n\n" +
+                        "Votre entretien a été planifié le " + interview.getInterviewDate() +
+                        " à " + interview.getStartTime() + ".\n\n" +
+                        "Cordialement,\nL'équipe RH");
+
         return interviewMapper.toDto(saved);
     }
 

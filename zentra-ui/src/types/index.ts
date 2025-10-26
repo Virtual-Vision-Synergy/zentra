@@ -127,11 +127,22 @@ export interface InterviewListItemDto {
 
 export interface CandidateDto {
   id: number;
-  firstName: string;
   lastName: string;
+  firstName: string;
   email: string;
   phone: string;
+  birthDate?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  educationLevel?: string;
+  lastDegree?: string;
+  yearsExperience?: number;
+  skills?: string;
+  cvFile?: string;
+  motivationalLetterFile?: string;
 }
+
 
 export interface EmployeeDto {
   id: number;
@@ -161,3 +172,36 @@ export interface PublicationFormDto {
   status: string;
   jobId: number;
 }
+
+// ========================================
+// Types pour Application (Candidature)
+// ========================================
+
+export interface ApplicationDto {
+  id: number;
+  candidateId: number;
+  publicationId: number;
+  appliedAt: string;
+  status: string;
+  candidate?: CandidateDto;
+}
+
+
+export interface ApplicationListItemDto {
+  id: number;
+  candidateFirstName: string;
+  candidateLastName: string;
+  candidateEmail: string;
+  publicationTitle: string;
+  appliedAt: string;
+  status: string;
+}
+
+export interface ApplicationFormDto {
+  id?: number;
+  candidateId: number;
+  publicationId: number;
+  appliedAt?: string;
+  status?: string;
+}
+

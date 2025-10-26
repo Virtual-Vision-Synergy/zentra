@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../services/api';
 import type { CandidateMinInfoDto } from '../types';
+import UserNavbar from '../components/UserNavbar';
 import '../styles/UserLogin.css';
 
 export default function UserLogin() {
@@ -40,6 +41,7 @@ export default function UserLogin() {
 
   return (
     <div className="login-container">
+      <UserNavbar />
       <div className="login-wrapper">
         <div className="login-card">
           <div className="login-header">

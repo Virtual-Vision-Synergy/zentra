@@ -25,16 +25,16 @@ public class QcmServiceImpl implements QcmService {
     }
 
     private void verifyQcm(Qcm qcm) {
-        if (qcm.getTitle() == null || qcm.getTitle().isEmpty())
+        if (qcm.getTitle() == null || qcm.getTitle().isBlank())
             throw new IllegalArgumentException("Title is empty");
-        if (qcm.getDescription() == null || qcm.getDescription().isEmpty())
+        if (qcm.getDescription() == null || qcm.getDescription().isBlank())
             throw new IllegalArgumentException("Description is empty");
         if (qcm.getRequiredScore() == null || qcm.getRequiredScore() < 0)
             throw new IllegalArgumentException("Required score is empty");
         if (qcm.getQuestions() == null || qcm.getQuestions().isEmpty())
             throw new IllegalArgumentException("Questions is empty");
         qcm.getQuestions().forEach(q -> {
-            if (q.getLibelle() == null || q.getLibelle().isEmpty())
+            if (q.getLibelle() == null || q.getLibelle().isBlank())
                 throw new IllegalArgumentException("Libelle is empty");
             if (q.getScore() == null || q.getScore() <= 0)
                 throw new IllegalArgumentException("Score is empty or invalid");

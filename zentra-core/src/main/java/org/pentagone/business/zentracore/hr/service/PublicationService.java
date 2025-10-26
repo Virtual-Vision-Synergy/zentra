@@ -10,5 +10,7 @@ public interface PublicationService {
     PublicationDto findById(Long id);
     List<PublicationDto> findAll();
     void deleteById(Long id);
+
+    List<PublicationDto> getOpenPublications();
 }
 

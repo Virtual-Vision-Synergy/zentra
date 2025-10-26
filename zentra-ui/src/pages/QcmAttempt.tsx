@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { get, post } from '../services/api';
 import type { QcmDto, AttemptDto, CandidateMinInfoDto } from '../types';
+import UserNavbar from '../components/UserNavbar';
 import Timer from '../components/Timer';
 import QuestionCard from '../components/QuestionCard';
 import ProgressBar from '../components/ProgressBar';
@@ -128,6 +129,7 @@ export default function QcmAttempt() {
 
   return (
     <div className="qcm-container">
+      <UserNavbar />
       <header className="qcm-header">
         <div className="header-content">
           <div className="header-left">

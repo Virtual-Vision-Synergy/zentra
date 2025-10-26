@@ -28,8 +28,8 @@ INSERT INTO employment_contract (employee_id, contract_number, start_date, end_d
 
 -- Publications
 INSERT INTO publication (title, description, published_date, closing_date, number_of_positions, status, job_id) VALUES
-  ('Développeur Fullstack - Paris', 'Recherche développeur fullstack pour projet web', '2025-01-15', '2025-02-28', 2, 'Open', (SELECT id FROM job WHERE title = 'Développeur Fullstack')),
-  ('Chargé de Recrutement', 'Renforcement équipe recrutement', '2025-03-01', '2025-03-31', 1, 'Open', (SELECT id FROM job WHERE title = 'Chargé de Recrutement'));
+  ('Développeur Fullstack - Paris', 'Recherche développeur fullstack pour projet web', '2025-01-15', '2026-02-28', 2, 'Open', (SELECT id FROM job WHERE title = 'Développeur Fullstack')),
+  ('Chargé de Recrutement', 'Renforcement équipe recrutement', '2025-03-01', '2026-03-31', 1, 'Open', (SELECT id FROM job WHERE title = 'Chargé de Recrutement'));
 
 -- QCMs
 INSERT INTO qcm (title, description, duration_minutes, total_score, required_score) VALUES
@@ -60,11 +60,11 @@ INSERT INTO candidate (last_name, first_name, email, phone, birth_date, address,
 -- Applications
 -- Application 1: with QCM, will have attempt and interview (complete)
 INSERT INTO application (applied_at, status, document_score, score, comment, candidate_id, qcm_id, publication_id) VALUES
-  ('2025-01-20 09:15:00', 'Received', 8.5, 9.0, 'Très bon dossier', (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-01-20 09:15:00', 'in_process', 8.5, 9.0, 'Très bon dossier', (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
 -- Application 2: without interview/attempt/score (intentionnel)
-  ('2025-02-02 11:00:00', 'Received', 7.0, NULL, 'A revoir pour QCM', (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-02-02 11:00:00', 'in_process', 7.0, NULL, 'A revoir pour QCM', (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
 -- Application 3: without QCM and without attempt/interview/score
-  ('2025-03-05 14:30:00', 'Received', NULL, NULL, NULL, (SELECT id FROM candidate WHERE email = 'hery.raja@example.com'), NULL, (SELECT id FROM publication WHERE title = 'Chargé de Recrutement'));
+  ('2025-03-05 14:30:00', 'in_process', NULL, NULL, NULL, (SELECT id FROM candidate WHERE email = 'hery.raja@example.com'), NULL, (SELECT id FROM publication WHERE title = 'Chargé de Recrutement'));
 
 -- Attempts (exist for certain applications only)
 -- Attempt for the first application (linked by candidate)

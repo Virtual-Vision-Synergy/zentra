@@ -13,6 +13,6 @@ public class ApplicationDto {
     private Double documentScore;
     private Double score;
     private String comment;
-    private Long candidateId;
+    private CandidateDto candidate;
     private Long publicationId;
 }
