@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import UserLogin from './pages/UserLogin';
 import QcmAttempt from './pages/QcmAttempt';
 import Success from './pages/Success';
@@ -24,6 +24,10 @@ function App() {
         <Route path="/qcm-attempt" element={<QcmAttempt />} />
         <Route path="/success" element={<Success />} />
         <Route path="/apply/:publicationId" element={<CandidateApply />} />
+
+        {/* Redirections conviviales vers les routes admin existantes */}
+        <Route path="/publications" element={<Navigate to="/admin/publications" replace />} />
+        <Route path="/publications/new" element={<Navigate to="/admin/publications/new" replace />} />
 
         {/* Routes admin */}
         <Route path="/admin" element={<AdminLayout />}>
