@@ -42,7 +42,7 @@ public class StaffingNeedController {
     @GetMapping
     public ResponseEntity<List<StaffingNeedDto>> getAllStaffingNeeds() {
         List<StaffingNeedDto> staffingNeeds = staffingNeedService.getAllStaffingNeeds();
-        return new ResponseEntity<>(staffingNeeds, HttpStatus.OK);
+         return new ResponseEntity<>(staffingNeeds, HttpStatus.OK);
     }
 
     @GetMapping("/department/{departmentId}")
