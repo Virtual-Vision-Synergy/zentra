@@ -37,3 +37,35 @@ export async function del<T = any>(path: string, headers: Headers = {}): Promise
     const res = await client.delete(path, {headers});
     return res.data;
 }
+
+export async function downloadFile(filePath: string, fileName: string): Promise<void> {
+    try {
+        const token = localStorage.getItem('qcm_token');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
+        const response = await fetch(`${apiUrl}/files/${filePath}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors du téléchargement du fichier');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error('Erreur lors du téléchargement:', err);
+        throw err;
+    }
+}
+

@@ -118,7 +118,7 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
         return staffingNeedRepository.findAll()
                 .stream()
                 .map(staffingNeedMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
         return staffingNeedRepository.findByDepartmentId(departmentId)
                 .stream()
                 .map(staffingNeedMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
         return staffingNeedRepository.findByJobId(jobId)
                 .stream()
                 .map(staffingNeedMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -145,7 +145,7 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
         return staffingNeedRepository.findByStatus(status)
                 .stream()
                 .map(staffingNeedMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -154,7 +154,7 @@ public class StaffingNeedServiceImpl implements StaffingNeedService {
         return staffingNeedRepository.findByPriority(priority)
                 .stream()
                 .map(staffingNeedMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

@@ -197,6 +197,13 @@ export interface ApplicationListItemDto {
   status: string;
 }
 
+export interface ScoreDto {
+  finalScore?: number;
+  documentScore?: number;
+  qcmScore?: number;
+  interviewScore?: number;
+}
+
 export interface ApplicationFormDto {
   id?: number;
   candidateId: number;

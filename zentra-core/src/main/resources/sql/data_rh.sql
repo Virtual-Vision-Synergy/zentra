@@ -55,16 +55,28 @@ INSERT INTO choice (libelle, correct, question_id) VALUES
 INSERT INTO candidate (last_name, first_name, email, phone, birth_date, address, city, country, education_level, last_degree, years_experience, skills, cv_file, motivational_letter_file) VALUES
   ('Nguyen', 'Lina', 'lina.nguyen@example.com', '+33611112222', '1995-04-02', '12 Rue C', 'Paris', 'France', 'Master', 'M2 Informatique', 3, 'Java, React', 'files/cv/lina.pdf', 'files/lettre/lina.pdf'),
   ('Kouassi', 'Marc', 'marc.kouassi@example.com', '+33633334444', '1990-09-12', '34 Av D', 'Lille', 'France', 'Licence', 'L3 RH', 5, 'Recrutement, Sourcing', 'files/cv/marc.pdf', NULL),
-  ('Rajaonarivelo', 'Hery', 'hery.raja@example.com', NULL, '1998-01-20', '7 Rue E', 'Bordeaux', 'France', 'Licence', NULL, 1, 'SQL, JS', NULL, NULL);
+  ('Rajaonarivelo', 'Hery', 'hery.raja@example.com', NULL, '1998-01-20', '7 Rue E', 'Bordeaux', 'France', 'Licence', NULL, 1, 'SQL, JS', NULL, NULL),
+  ('Alan', 'Alan', 'alan.alan@example.com', '+33670000001', '1992-07-15', '1 Rue Alan', 'Antananarivo', 'Madagascar', 'Licence', 'L3 Informatique', 2, 'HTML, CSS', NULL, NULL),
+  ('Manakasina', 'Judicael', 'judicael.manakasina@example.com', '+33670000002', '1994-05-22', '22 Rue M', 'Antananarivo', 'Madagascar', 'Master', 'M2 Informatique', 3, 'Java, Spring', 'files/cv/judicael.pdf', NULL),
+  ('Nahary', 'Kevin', 'kevin.nahary@example.com', '+33670000003', '1990-11-03', '5 Av N', 'Toulouse', 'France', 'Licence', 'L3 Dev', 4, 'SQL, Node.js', NULL, NULL),
+  ('Matia', 'Randy', 'randy.matia@example.com', '+33670000004', '1991-02-18', '10 Bd R', 'Marseille', 'France', 'Master', 'M2 RH', 2, 'Communication, Sourcing', NULL, NULL),
+  ('Fy', 'Aro Loyola', 'aro.loyola@example.com', '+33670000005', '1993-09-30', '8 Rue F', 'Paris', 'France', 'Licence', NULL, 1, 'Design, UX', NULL, NULL);
 
 -- Applications
--- Application 1: with QCM, will have attempt and interview (complete)
 INSERT INTO application (applied_at, status, document_score, score, comment, candidate_id, qcm_id, publication_id) VALUES
-  ('2025-01-20 09:15:00', 'in_process', 8.5, 9.0, 'Très bon dossier', (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-01-20 09:15:00', 'interview_scheduled', 8.5, 9.0, 'Très bon dossier', (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
 -- Application 2: without interview/attempt/score (intentionnel)
-  ('2025-02-02 11:00:00', 'in_process', 7.0, NULL, 'A revoir pour QCM', (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-02-02 11:00:00', 'test_scheduled', 7.0, NULL, 'A revoir pour QCM', (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
 -- Application 3: without QCM and without attempt/interview/score
-  ('2025-03-05 14:30:00', 'in_process', NULL, NULL, NULL, (SELECT id FROM candidate WHERE email = 'hery.raja@example.com'), NULL, (SELECT id FROM publication WHERE title = 'Chargé de Recrutement'));
+  ('2025-03-05 14:30:00', 'received', NULL, NULL, NULL, (SELECT id FROM candidate WHERE email = 'hery.raja@example.com'), NULL, (SELECT id FROM publication WHERE title = 'Chargé de Recrutement'));
+
+-- Additional applications for newly added candidates
+INSERT INTO application (applied_at, status, document_score, score, comment, candidate_id, qcm_id, publication_id) VALUES
+  ('2025-04-10 09:00:00', 'received', 6.5, NULL, 'Candidature reçue', (SELECT id FROM candidate WHERE email = 'alan.alan@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-04-12 10:30:00', 'test_scheduled', 8.0, NULL, 'QCM programmé', (SELECT id FROM candidate WHERE email = 'judicael.manakasina@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-04-15 14:00:00', 'test_scheduled', 7.5, NULL, NULL, (SELECT id FROM candidate WHERE email = 'kevin.nahary@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris')),
+  ('2025-04-18 11:00:00', 'interview_scheduled', 7.0, NULL, 'Bonne expérience précédente', (SELECT id FROM candidate WHERE email = 'randy.matia@example.com'), (SELECT id FROM qcm WHERE title = 'QCM RH'), (SELECT id FROM publication WHERE title = 'Chargé de Recrutement')),
+  ('2025-04-20 16:20:00', 'received', 6.0, NULL, 'Portfolio intéressant', (SELECT id FROM candidate WHERE email = 'aro.loyola@example.com'), (SELECT id FROM qcm WHERE title = 'QCM Technique - Dev'), (SELECT id FROM publication WHERE title = 'Développeur Fullstack - Paris'));
 
 -- Attempts (exist for certain applications only)
 -- Attempt for the first application (linked by candidate)
@@ -84,7 +96,9 @@ INSERT INTO interview (candidate_id, interviewer_id, interview_date, start_time,
 -- Token (par exemple pour accès au QCM) - lié à l'application 1 et 2
 INSERT INTO token (value, active, expiration_date, application_id) VALUES
   ('tok_ABC123', false, '2026-02-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'lina.nguyen@example.com') ORDER BY applied_at LIMIT 1)),
-  ('tok_DEF456', true, '2026-03-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com') ORDER BY applied_at LIMIT 1));
+  ('tok_DEF456', true, '2026-03-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'marc.kouassi@example.com') ORDER BY applied_at LIMIT 1)),
+  ('tok_JUDI001', true, '2026-04-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'judicael.manakasina@example.com') ORDER BY applied_at LIMIT 1)),
+  ('tok_KEVIN001', true, '2026-04-01 00:00:00', (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'kevin.nahary@example.com') ORDER BY applied_at LIMIT 1));
 
 -- Staffing Needs
 INSERT INTO staffing_need (title, description, number_of_positions, priority, status, required_start_date, budget_allocated, justification, department_id, job_id, requested_by) VALUES
@@ -95,3 +109,7 @@ COMMIT;
 
 -- Fin du script
 -- Note: certaines applications n'ont volontairement pas d'interview ni d'attempt et leur colonne score est NULL.
+
+-- Ajout d'une interview planifiée pour Randy Matia (application avec status interview_scheduled)
+INSERT INTO interview (candidate_id, interviewer_id, interview_date, start_time, duration_minutes, interview_type, location, status, comment, score, application_id) VALUES
+  ((SELECT id FROM candidate WHERE email = 'randy.matia@example.com'), (SELECT id FROM employee WHERE employee_number = 'EMP-0002'), '2025-04-25', '09:30:00', 30, 'PRESENTIEL', 'Bureau Lyon - Salle 3', 'SCHEDULED', 'A programmer après QCM', NULL, (SELECT id FROM application WHERE candidate_id = (SELECT id FROM candidate WHERE email = 'randy.matia@example.com') ORDER BY applied_at LIMIT 1));

@@ -46,7 +46,7 @@ public class Interview extends BaseEntity {
     @Column(name = "score")
     private Double score;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application_id")
     private Application application;
 }

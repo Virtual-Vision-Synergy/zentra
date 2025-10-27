@@ -1,8 +1,6 @@
 package org.pentagone.business.zentracore.hr.controller;
 
-import org.pentagone.business.zentracore.hr.dto.ApplicationDto;
-import org.pentagone.business.zentracore.hr.dto.AssignQcmDto;
-import org.pentagone.business.zentracore.hr.dto.SetDocumentScoreDto;
+import org.pentagone.business.zentracore.hr.dto.*;
 import org.pentagone.business.zentracore.hr.service.ApplicationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,6 +41,16 @@ public class ApplicationController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/{id}/score")
+    public ResponseEntity<ScoreDto> getApplicationScoreById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(applicationService.getScoreByApplicationId(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/accept")
+    public ResponseEntity<EmployeeDto> acceptApplication(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(applicationService.acceptByApplicationId(id), HttpStatus.OK);
+    }
+
     @PutMapping
     public ResponseEntity<ApplicationDto> updateApplication(@RequestBody ApplicationDto applicationDto) {
         ApplicationDto updated = applicationService.updateApplication(applicationDto);
@@ -57,6 +65,7 @@ public class ApplicationController {
 
     @PostMapping("/document-score")
     public ResponseEntity<SetDocumentScoreDto> setDocumentScore(@RequestBody SetDocumentScoreDto setDocumentScoreDto) {
+        System.out.println("bobota");
         SetDocumentScoreDto updated = applicationService.setDocumentScore(setDocumentScoreDto);
         return ResponseEntity.ok(updated);
     }

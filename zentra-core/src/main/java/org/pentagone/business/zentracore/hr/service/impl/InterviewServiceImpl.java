@@ -92,14 +92,9 @@ public class InterviewServiceImpl implements InterviewService {
         interview.setInterviewer(interviewer);
 
         // Associer l'application si fournie - charger l'entité gérée depuis la BD
-        if (interviewDto.getApplicationId() != null) {
-            Application application = applicationRepository.findById(interviewDto.getApplicationId())
-                    .orElseThrow(() -> new EntityNotFoundException("Candidature non trouvée avec l'ID: " + interviewDto.getApplicationId()));
-            interview.setApplication(application);
-            application.setStatus("interview_scheduled");
-        } else {
-            interview.setApplication(null);
-        }
+        Application application = candidate.getApplication();
+        interview.setApplication(application);
+        application.setStatus("interview_scheduled");
 
         // Définir le statut par défaut
         if (interview.getStatus() == null || interview.getStatus().isEmpty()) {
@@ -173,7 +168,7 @@ public class InterviewServiceImpl implements InterviewService {
     public List<InterviewDto> getAllInterviews() {
         return interviewRepository.findAll().stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -187,49 +182,49 @@ public class InterviewServiceImpl implements InterviewService {
     public List<InterviewDto> getInterviewsByCandidate(Long candidateId) {
         return interviewRepository.findByCandidateId(candidateId).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByInterviewer(Long interviewerId) {
         return interviewRepository.findByInterviewerId(interviewerId).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByType(String interviewType) {
         return interviewRepository.findByInterviewType(interviewType.toUpperCase()).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByStatus(String status) {
         return interviewRepository.findByStatus(status.toUpperCase()).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByDate(LocalDate date) {
         return interviewRepository.findByInterviewDate(date).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByDateRange(LocalDate startDate, LocalDate endDate) {
         return interviewRepository.findByInterviewDateBetween(startDate, endDate).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<InterviewDto> getInterviewsByInterviewerAndStatus(Long interviewerId, String status) {
         return interviewRepository.findByInterviewerIdAndStatus(interviewerId, status.toUpperCase()).stream()
                 .map(interviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

@@ -89,7 +89,7 @@ public class CandidateServiceImpl implements CandidateService {
     public List<CandidateDto> getAllCandidates() {
         return candidateRepository.findAll().stream()
                 .map(candidateMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

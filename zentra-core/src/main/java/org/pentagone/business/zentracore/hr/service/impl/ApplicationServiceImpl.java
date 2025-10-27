@@ -2,15 +2,13 @@ package org.pentagone.business.zentracore.hr.service.impl;
 
 import jakarta.transaction.Transactional;
 import org.pentagone.business.zentracore.common.exception.EntityNotFoundException;
-import org.pentagone.business.zentracore.hr.dto.ApplicationDto;
-import org.pentagone.business.zentracore.hr.dto.AssignQcmDto;
-import org.pentagone.business.zentracore.hr.dto.SetDocumentScoreDto;
-import org.pentagone.business.zentracore.hr.entity.Application;
-import org.pentagone.business.zentracore.hr.entity.Candidate;
-import org.pentagone.business.zentracore.hr.entity.Qcm;
-import org.pentagone.business.zentracore.hr.entity.Token;
+import org.pentagone.business.zentracore.hr.dto.*;
+import org.pentagone.business.zentracore.hr.entity.*;
 import org.pentagone.business.zentracore.hr.mapper.ApplicationMapper;
+import org.pentagone.business.zentracore.hr.mapper.EmployeeMapper;
 import org.pentagone.business.zentracore.hr.repository.ApplicationRepository;
+import org.pentagone.business.zentracore.hr.repository.ContractRepository;
+import org.pentagone.business.zentracore.hr.repository.EmployeeRepository;
 import org.pentagone.business.zentracore.hr.repository.QcmRepository;
 import org.pentagone.business.zentracore.hr.service.ApplicationService;
 import org.pentagone.business.zentracore.hr.service.FileService;
@@ -19,8 +17,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,19 +30,25 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final TokenService tokenService;
     private final ApplicationRepository applicationRepository;
     private final QcmRepository qcmRepository;
+    private final EmployeeRepository employeeRepository;
+    private final ContractRepository contractRepository;
     private final ApplicationMapper applicationMapper;
+    private final EmployeeMapper employeeMapper;
     @Value("${upload-dir.candidates.cvs}")
     private String cvsUploadDir;
     @Value("${upload-dir.candidates.motivation-letters}")
     private String motivationLettersUploadDir;
 
-    public ApplicationServiceImpl(FileService fileService, MailServiceImpl mailService, TokenService tokenService, ApplicationRepository applicationRepository, QcmRepository qcmRepository, ApplicationMapper applicationMapper) {
+    public ApplicationServiceImpl(FileService fileService, MailServiceImpl mailService, TokenService tokenService, ApplicationRepository applicationRepository, QcmRepository qcmRepository, EmployeeRepository employeeRepository, ContractRepository contractRepository, ApplicationMapper applicationMapper, EmployeeMapper employeeMapper) {
         this.fileService = fileService;
         this.mailService = mailService;
         this.tokenService = tokenService;
         this.applicationRepository = applicationRepository;
         this.qcmRepository = qcmRepository;
+        this.employeeRepository = employeeRepository;
+        this.contractRepository = contractRepository;
         this.applicationMapper = applicationMapper;
+        this.employeeMapper = employeeMapper;
     }
 
     void verifyCandidate(Candidate candidate) {
@@ -160,6 +166,55 @@ public class ApplicationServiceImpl implements ApplicationService {
                         "Cordialement,\nL'équipe RH");
         applicationRepository.save(application);
         return assignQcmDto;
+    }
+
+    @Override
+    public ScoreDto getScoreByApplicationId(Long applicationId) {
+        Application application = applicationRepository.findById(applicationId).orElseThrow(() ->
+                new EntityNotFoundException("Application not found with id: " + applicationId));
+        ScoreDto scoreDto = new ScoreDto();
+        scoreDto.setInterviewScore(Optional.ofNullable(application.getInterview().getScore()).orElse(0.0));
+        scoreDto.setQcmScore(Optional.ofNullable(application.getAttempt().getObtainedScore()).orElse(0.0));
+        scoreDto.setDocumentScore(Optional.ofNullable(application.getDocumentScore()).orElse(0.0));
+        scoreDto.setFinalScore((scoreDto.getInterviewScore() + scoreDto.getQcmScore() + scoreDto.getDocumentScore()) / 3);
+        return scoreDto;
+    }
+
+    @Override
+    public EmployeeDto acceptByApplicationId(Long applicationId) {
+        Application application = applicationRepository.findById(applicationId).orElseThrow(() ->
+                new EntityNotFoundException("Application not found with id: " + applicationId));
+        Candidate candidate = application.getCandidate();
+        Employee employee = new Employee();
+        employee.setFirstName(candidate.getFirstName());
+        employee.setLastName(candidate.getLastName());
+        employee.setBirthDate(candidate.getBirthDate());
+        employee.setWorkEmail(candidate.getEmail());
+        employee.setWorkPhone(candidate.getPhone());
+        employee.setAddress(candidate.getAddress());
+        employee.setCity(candidate.getCity());
+        employee.setCountry(candidate.getCountry());
+        employee.setHireDate(LocalDate.now());
+        employee.setJob(application.getPublication().getJob());
+        employee.setBaseSalary(5000.0);
+        employee.setEmployeeNumber("EMP-" + LocalDate.now());
+        application.setStatus("accepted");
+
+        applicationRepository.save(application);
+        employee = employeeRepository.save(employee);
+        Contract contract = new Contract();
+        contract.setEmployee(employee);
+        contract.setContractNumber("CONTRACT-" + application.getId());
+        contract.setStartDate(LocalDate.now());
+        contract.setWeeklyHours(10.0);
+        contract.setAnnualLeaveDays(30);
+        contractRepository.save(contract);
+        mailService.sendEmail(application.getCandidate().getEmail(),
+                "Candidature acceptée",
+                "Bonjour " + application.getCandidate().getFirstName() + ",\n\n" +
+                        "Félicitations ! Votre candidature pour le poste publié a été acceptée. Nous sommes ravis de vous accueillir au sein de notre équipe. Notre service des ressources humaines vous contactera prochainement pour discuter des prochaines étapes.\n\n" +
+                        "Cordialement,\nL'équipe RH");
+        return employeeMapper.toDto(employee);
     }
 
     public void receivedApplication(Application application) {

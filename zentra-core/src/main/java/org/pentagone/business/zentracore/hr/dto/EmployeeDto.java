@@ -22,6 +22,6 @@ public class EmployeeDto {
     private LocalDate hireDate;
     private BigDecimal baseSalary;
     private LocalDate contractEndDate;
-    private Long candidateId;
+    private Long contractId;
     private Long jobId;
 }
