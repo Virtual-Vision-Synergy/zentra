@@ -65,6 +65,11 @@ public class Employee extends BaseEntity {
     private Contract contract;
 
     public Double getBaseSalary() {
-        return contract.getGrossSalary();
+        // Si un contrat est lié, utiliser le salaire brut du contrat
+        if (contract != null && contract.getGrossSalary() != null) {
+            return contract.getGrossSalary();
+        }
+        // Sinon, retourner la valeur stockée en base (champ baseSalary)
+        return baseSalary;
     }
 }
