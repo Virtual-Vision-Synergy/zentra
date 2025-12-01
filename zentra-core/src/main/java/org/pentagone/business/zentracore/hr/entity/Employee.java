@@ -18,8 +18,6 @@ public class Employee extends BaseEntity {
     
     @Column(name = "employee_number", nullable = false, unique = true, length = 50)
     private String employeeNumber;
-
-    private Long cnapsNumber;
     
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
@@ -65,6 +63,11 @@ public class Employee extends BaseEntity {
     private Contract contract;
 
     public Double getBaseSalary() {
-        return contract.getGrossSalary();
+        // Si un contrat est lié, utiliser le salaire brut du contrat
+        if (contract != null && contract.getGrossSalary() != null) {
+            return contract.getGrossSalary();
+        }
+        // Sinon, retourner la valeur stockée en base (champ baseSalary)
+        return baseSalary;
     }
 }

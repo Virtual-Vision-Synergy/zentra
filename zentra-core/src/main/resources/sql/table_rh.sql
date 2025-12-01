@@ -327,3 +327,43 @@ create table staffing_need
 alter table staffing_need
     owner to postgres;
 
+-- Performance management tables
+CREATE TABLE IF NOT EXISTS performance_criterion (
+    id BIGSERIAL PRIMARY KEY,
+    code VARCHAR(100) NOT NULL UNIQUE,
+    label VARCHAR(255) NOT NULL,
+    description TEXT,
+    default_weight DOUBLE PRECISION NOT NULL,
+    category VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS performance_evaluation_period (
+    id BIGSERIAL PRIMARY KEY,
+    code VARCHAR(100) NOT NULL UNIQUE,
+    label VARCHAR(255) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    status VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS employee_performance_evaluation (
+    id BIGSERIAL PRIMARY KEY,
+    employee_id BIGINT NOT NULL REFERENCES employee(id),
+    period_id BIGINT NOT NULL REFERENCES performance_evaluation_period(id),
+    overall_score DOUBLE PRECISION,
+    rating VARCHAR(50),
+    status VARCHAR(50),
+    evaluation_date DATE,
+    evaluator_name VARCHAR(255),
+    comments TEXT
+);
+
+CREATE TABLE IF NOT EXISTS employee_performance_detail (
+    id BIGSERIAL PRIMARY KEY,
+    evaluation_id BIGINT NOT NULL REFERENCES employee_performance_evaluation(id) ON DELETE CASCADE,
+    criterion_id BIGINT NOT NULL REFERENCES performance_criterion(id),
+    score DOUBLE PRECISION NOT NULL,
+    weight_used DOUBLE PRECISION NOT NULL,
+    weighted_score DOUBLE PRECISION NOT NULL,
+    comment TEXT
+);

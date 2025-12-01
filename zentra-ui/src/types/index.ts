@@ -217,23 +217,25 @@ export interface ApplicationFormDto {
 // ========================================
 
 export interface IrsaRateDto {
-  id: number;
-  minIncome?: number | null;
-  maxIncome?: number | null;
-  rate?: number | null;
-  amount?: number | null;
+    id: number;
+    minIncome?: number | null;
+    maxIncome?: number | null;
+    rate?: number | null;
+    amount?: number | null;
 }
 
 export interface CnapsRateDto {
-  id: number;
-  ceilingBaseAmount?: number | null;
-  ceilingRate?: number | null;
-  rate?: number | null;
-  ceilingAmount?: number | null;
+    id: number;
+    ceilingBaseAmount?: number | null;
+    ceilingRate?: number | null;
+    rate?: number | null;
+    ceilingAmount?: number | null;
 }
 
 export interface OstieRateDto {
-  id: number;
-  rate?: number | null;
+    id: number;
+    rate?: number | null;
 }
+
+
 

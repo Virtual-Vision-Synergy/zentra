@@ -19,7 +19,6 @@ import ApplicationForm from './pages/ApplicationForm';
 import HRDashboard from './hr/StaffingNeedApp';
 import PublicationsPage from './pages/PublicationsPage';
 import PublicationForm from './pages/PublicationForm';
-import AttendancePage from './pages/AttendancePage';
 import HRHome from './hr/pages/HRHome';
 import EmployeesList from './hr/pages/EmployeesList';
 import EmployeeCreate from './hr/pages/EmployeeCreate';
@@ -75,8 +74,6 @@ function App() {
           {/* Besoins: on affiche tableau de bord RH simple */}
           <Route path="besoins" element={<HRDashboard />} />
 
-          {/* Présences */}
-          <Route path="attendance" element={<AttendancePage />} />
 
           {/* RH */}
           <Route path="hr" element={<HRHome />} />
