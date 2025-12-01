@@ -30,24 +30,15 @@ import DocumentsPage from './hr/pages/DocumentsPage';
 import UploadDocumentPage from './hr/pages/UploadDocumentPage';
 import StaffingNeedsList from './hr/pages/StaffingNeedsList';
 import StaffingNeedCreate from './hr/pages/StaffingNeedCreate';
-import PerformanceDashboard from './pages/PerformanceDashboard';
-import PerformanceReport from './pages/PerformanceReport';
-import PerformanceEvaluationForm from './pages/PerformanceEvaluationForm';
-// Intelligence Artificielle
-import AIDashboardPage from './pages/AIDashboardPage';
-import DocumentGeneratorPage from './pages/DocumentGeneratorPage';
-import CandidateRecommendationPage from './pages/CandidateRecommendationPage';
-import KnowledgeBasePage from './pages/KnowledgeBasePage';
-import ChatbotWidget from './components/ChatbotWidget';
-import TestEmployeesPage from './pages/TestEmployeesPage';
+import PayrollPage from './hr/pages/PayrollPage';
+import PayStubPage from './hr/pages/PayStubPage';
+import BonusAdvancePage from './hr/pages/BonusAdvancePage';
+import ContributionConfiguration from './pages/ContributionConfiguration';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Route de test (développement) */}
-        <Route path="/test-employees" element={<TestEmployeesPage />} />
-
         {/* Routes utilisateurs */}
         <Route path="/" element={<Home />} />
         <Route path="/publications" element={<PublicationListUser />} />
@@ -83,13 +74,6 @@ function App() {
           {/* Besoins: on affiche tableau de bord RH simple */}
           <Route path="besoins" element={<HRDashboard />} />
 
-          {/* Performance */}
-          <Route path="performance" element={<PerformanceDashboard />} />
-          <Route path="performance/new" element={<PerformanceEvaluationForm />} />
-          <Route path="performance/reports" element={<PerformanceReport />} />
-
-          {/* Présences */}
-          <Route path="attendance" element={<AttendancePage />} />
 
           {/* RH */}
           <Route path="hr" element={<HRHome />} />
@@ -113,17 +97,8 @@ function App() {
           <Route path="hr/pay/paystub" element={<PayStubPage />} />
           <Route path="hr/pay/bonus-advance" element={<BonusAdvancePage />} />
           <Route path="hr/contributions" element={<ContributionConfiguration />} />
-
-          {/* Intelligence Artificielle */}
-          <Route path="ai/dashboard" element={<AIDashboardPage />} />
-          <Route path="ai/documents" element={<DocumentGeneratorPage />} />
-          <Route path="ai/recommendations" element={<CandidateRecommendationPage />} />
-          <Route path="ai/knowledge" element={<KnowledgeBasePage />} />
         </Route>
       </Routes>
-
-      {/* Widget Chatbot disponible sur toutes les pages */}
-      <ChatbotWidget userId={1} />
     </BrowserRouter>
   );
 }
