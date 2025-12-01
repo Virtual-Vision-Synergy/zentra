@@ -18,8 +18,6 @@ public class Employee extends BaseEntity {
     
     @Column(name = "employee_number", nullable = false, unique = true, length = 50)
     private String employeeNumber;
-
-    private Long cnapsNumber;
     
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
@@ -63,6 +61,5 @@ public class Employee extends BaseEntity {
     
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Contract contract;
-
 
 }

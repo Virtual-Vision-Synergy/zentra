@@ -182,22 +182,6 @@ zentra-core/
 psql zentra < src/main/resources/sql/table_rh.sql
 ```
 
-### Jeu de données (seed)
-
-Un jeu de données PostgreSQL complet et cohérent est fourni ici :
-- `src/main/resources/sql/all_entities_seed.sql`
-
-Sous Windows (cmd.exe), exécutez :
-
-```bat
-set PGPASSWORD=YOUR_PASSWORD
-psql -h localhost -U postgres -d zentra -f src/main/resources/sql/all_entities_seed.sql
-```
-
-Remarques :
-- Le script est transactionnel (BEGIN/COMMIT) et idempotent (ON CONFLICT DO NOTHING sur les clés uniques usuelles).
-- Les champs YearMonth (ex: `salary_advance.date`, `bonus.date`) sont stockés en texte au format `yyyy-MM` via un convertisseur JPA.
-
 ---
 
 ## 🎯 Exemples d'utilisation

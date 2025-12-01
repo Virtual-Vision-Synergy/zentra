@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { listEmployees } from '../services/hrApi';
 import type { EmployeeDto } from '../types/employee';
-import '../features/documents/styles/HRPages.css';
+import '../../styles/HRPages.css';
 
 const JobHistoryPage: React.FC = () => {
   const [employees, setEmployees] = useState<EmployeeDto[]>([]);
