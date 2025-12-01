@@ -62,4 +62,12 @@ public class Employee extends BaseEntity {
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Contract contract;
 
+    public Double getBaseSalary() {
+        // Si un contrat est lié, utiliser le salaire brut du contrat
+        if (contract != null && contract.getGrossSalary() != null) {
+            return contract.getGrossSalary();
+        }
+        // Sinon, retourner la valeur stockée en base (champ baseSalary)
+        return baseSalary;
+    }
 }
